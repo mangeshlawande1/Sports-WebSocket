@@ -4,7 +4,7 @@
 - db - source of records
 -  webSockets - distribution layer.
 
-### Control Flow :
+## Control Flow :
 
 - Game Database(state is stored)  ---> Match REST API(fetch match state, create/update moves)  ----> Websockets (Live game updates)
 
@@ -22,8 +22,8 @@
 - Database - Postgres 
   - Real-Time Sports DB Schema : static anchor vs Fast events
 
-- create Match( static/anchor ) : id, HomeTeam, AwayTeam, sport, startTime, Status(Scheduled live finished), HomeScore, AwayScore
-- Commentary(Dynamic story Events) : id Match id Actor message, minute sequenceNo details
+- create Match( static/anchor ) : id, HomeTeam, AwayTeam, sport, startTime, endTime, Status(Scheduled live finished), HomeScore, AwayScore
+- Commentary(Dynamic story Events) : id, matchId (FK), minute, sequence, period, eventType, actor, team, message, metadata (JSONB), tags (array), createdAt
 
 **2. REST**
   - Commands & initial states.

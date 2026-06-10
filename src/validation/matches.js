@@ -17,7 +17,7 @@ const positiveInt = z.coerce.number().int().positive();
 const nonNegativeInt = z.coerce.number().int().nonnegative();
 
 const isoDateStringSchema = z
-    .string()
+    .iso
     .datetime({
         offset: true,
         message:
