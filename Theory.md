@@ -17,7 +17,7 @@ How do we avoid sending fake or inconsistent data ?
 
 **1. Schema Design & Relations**
 - Database - Postgres 
-  - Real Time Sports DB Schema : static anchor vs Fast events
+  - Real-Time Sports DB Schema : static anchor vs Fast events
 
 - create Match( static/anchor ) : id, HomeTeam, AwayTeam, sport, startTime, Status(Scheduled live finished), HomeScore, AwayScore
-- Commentary(Dynamic story Events) : id Match id Actor message, minute sequenceNO details 
+- Commentary(Dynamic story Events) : id Match id Actor message, minute sequenceNo details 

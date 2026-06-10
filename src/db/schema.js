@@ -41,8 +41,9 @@ export const matches = pgTable("matches", {
     })
         .defaultNow()
         .notNull(),
-});
-
+}, (table) => ({
+    statusIdx: index("matches_status_idx").on(table.status),
+}));
 /**
  * Commentary Table
  */
@@ -75,5 +76,7 @@ export const commentary = pgTable("commentary", {
     })
         .defaultNow()
         .notNull(),
-})
-
+},  (table) => ({
+    matchIdIdx: index("commentary_match_id_idx").on(table.matchId),
+    matchIdSequenceUnique: unique("commentary_match_id_sequence_unique").on(table.matchId, table.sequence),
+}));
