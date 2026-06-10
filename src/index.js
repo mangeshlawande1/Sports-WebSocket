@@ -1,4 +1,5 @@
 import express from 'express';
+import {matchRouter} from "./routes/matches.js";
 
 const app = express();
 const PORT = 8080;
@@ -10,6 +11,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.json({ message: "Welcome! The server is running smoothly." });
 });
+
+app.use('/matches',matchRouter);
 
 // Start server and log the dynamic URL
 app.listen(PORT, () => {
