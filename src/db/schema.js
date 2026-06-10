@@ -1,6 +1,7 @@
 import {
     pgTable, pgEnum, serial, varchar, integer, timestamp, jsonb, text,
-    index, } from "drizzle-orm/pg-core";
+    index, unique,
+} from "drizzle-orm/pg-core";
 
 
 /**
