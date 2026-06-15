@@ -8,8 +8,12 @@ function sendJson(socket, payload) {
 }
 
 function broadCast(wss, payload) {
+
     for (const client of wss.clients) {
+        if (client.readyState === WebSocket.OPEN) continue;
         client.send(JSON.stringify(payload));
+
+        sendJson(client, payload);
     }
 };
 
@@ -22,9 +26,24 @@ export function attachWebSocketServer(server) {
     });
 
     wss.on('connection', (socket) => {
+        socket.isAlive = true;
+        socket.on('pong', () => { socket.isAlive = true; });
+
         sendJson(socket, { type: 'welcome', });
 
         socket.on('error', console.error);
+
+        const interval = setInterval(() => {
+            wss.clients.forEach((ws) => {
+                if (ws.isAlive === false) return ws.terminate();
+                ws.isAlive = false;
+                ws.ping();
+            });
+        }, 30000); //ping every 30 seconds to keep the connection alive
+
+        socket.on('close', () => {
+            clearInterval(interval);
+        });
     });
 
     function broadcastMatchCreated(match) {
