@@ -37,3 +37,8 @@
   - Commentary added 
   - Live Event Pushed Instantly
 -------------------------------------------------
+
+## Build WebSocket Layer 
+- Persistent bidirectional data flow 
+- Always open connection.
+- 

@@ -1,8 +1,15 @@
+import 'dotenv/config';
 import express from 'express';
-import {matchRouter} from "./routes/matches.js";
+import { matchRouter } from "./routes/matches.js";
+import http from 'http';
+import { attachWebSocketServer } from './ws/server.js';
+
+const PORT = Number(process.env.PORT) || 8000;
+const HOST = process.env.HOST || '0.0.0.0';
 
 const app = express();
-const PORT = 8080;
+const server = http.createServer(app);
+
 
 // JSON middleware to parse incoming JSON payloads
 app.use(express.json());
@@ -12,10 +19,13 @@ app.get('/', (req, res) => {
     res.json({ message: "Welcome! The server is running smoothly." });
 });
 
-app.use('/matches',matchRouter);
+app.use('/matches', matchRouter);
+const { broadcastMatchCreated } = attachWebSocketServer(server);
+app.locals.broadcastMatchCreated = broadcastMatchCreated;
 
 // Start server and log the dynamic URL
-app.listen(PORT, () => {
-    console.log(`Server started successfully!`);
-    console.log(`Listening on: http://localhost:${PORT}`);
+server.listen(PORT, HOST, () => {
+    const baseUrl = HOST === '0.0.0.0' ? `http://localhost:${PORT}` : `http://${HOST}:${PORT}`;
+    console.log(`Server Listening on: ${baseUrl}`);
+    console.log(`WebSocket Server Listening on: ${baseUrl.replace('http','ws')}/ws`);
 });
