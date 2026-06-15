@@ -1,0 +1,38 @@
+//  create a function to send object to a specific client(helper fun)
+import { WebSocket, WebSocketServer } from 'ws'
+
+function sendJson(socket, payload) {
+    if (socket.readyState !== WebSocket.OPEN) return;
+
+    socket.send(JSON.stringify(payload));
+}
+
+function broadCast(wss, payload) {
+    for (const client of wss.clients) {
+        client.send(JSON.stringify(payload));
+    }
+};
+
+//attach websocket logic to node server
+export function attachWebSocketServer(server) {
+    const wss = new WebSocketServer({
+        server,
+        path: '/ws',
+        maxPayload: 1024 * 1024, // 1MB
+    });
+
+    wss.on('connection', (socket) => {
+        sendJson(socket, { type: 'welcome', });
+
+        socket.on('error', console.error);
+    });
+
+    function broadcastMatchCreated(match) {
+        broadCast(wss, { type: 'match_created', payload: match });
+    }
+
+    return {
+        broadcastMatchCreated
+    }
+
+}
