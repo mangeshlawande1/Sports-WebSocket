@@ -15,7 +15,7 @@ export const pool = new Pool({
     connectionTimeoutMillis: 10000,
 
     ssl: {
-        rejectUnauthorized: false,
+        rejectUnauthorized: process.env.PG_SSL_REJECT_UNAUTHORIZED !== "false",
     }
 });
 

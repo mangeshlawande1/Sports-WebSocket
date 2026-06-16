@@ -1,8 +1,7 @@
 // centallize for security logic
 //  define setup rule separately    
-import Arcjet, { detectBot, shield, slidingWindow } from '@arcjet/node';
-import { attachWebSocketServer } from './ws/server.js';
-import arcjet from '@arcjet/node';
+import arcjet, { detectBot, shield, slidingWindow } from '`@arcjet/node`';
+
 
 const arcjetKey = process.env.ARCJET_KEY;
 const arcjetMode =
@@ -14,7 +13,8 @@ if (!arcjetKey) {
     throw new Error("ARCJET_KEY is missing in environment variables");
 };
 
-export const httpArcjet = arcjetKey ? arcjet({
+
+export const httpArcjet = arcjet({
     key: arcjetKey,
     rules: [
         shield({ mode: arcjetMode, }),
@@ -27,7 +27,7 @@ export const httpArcjet = arcjetKey ? arcjet({
         }),
         slidingWindow({ mode: arcjetMode, interval: '10s', max: 50 })
     ]
-}) : null;
+});
 
 
 export const wsArcjet = arcjetKey ? arcjet({
