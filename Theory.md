@@ -42,3 +42,7 @@
 - Persistent bidirectional data flow 
 - Always open connection.
 - 
+
+## Arcjet 
+- add security measures for both http and websocket server 
+- 
