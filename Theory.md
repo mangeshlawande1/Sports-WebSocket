@@ -79,4 +79,10 @@ Using Drizzle orm & express, generate a GET '/' route for nested commentary rout
 1. Implemant a Pub/Sub(public-Subscribe) Architecture : 
   - update only send to fans/users who have joins this specific match 
   Q. how you can implement new pattern with upcomming real time applications  ?
-  
+
+
+### Monitoring ( APM ) : 
+  - checking services s online or not 
+  > How long messages and events take to process
+  > which handlers slow down under load 
+  > When CPU or memory spikes during real usage 
