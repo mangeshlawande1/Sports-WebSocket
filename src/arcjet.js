@@ -1,6 +1,6 @@
 // centallize for security logic
 //  define setup rule separately    
-import arcjet, { detectBot, shield, slidingWindow } from '`@arcjet/node`';
+import arcjet, { detectBot, shield, slidingWindow } from '@arcjet/node';
 
 
 const arcjetKey = process.env.ARCJET_KEY;

@@ -41,8 +41,42 @@
 ## Build WebSocket Layer 
 - Persistent bidirectional data flow 
 - Always open connection.
-- 
+
 
 ## Arcjet 
 - add security measures for both http and websocket server 
-- 
+
+
+1. Match API : 
+  - Handles the overall structure
+
+2. Commentary API 
+  - Captures the story of the games .
+
+Act as senior node js developer , using zod create a validation file validation commentary.js 
+  1. create a listCommentaryQuerySchema an object of Optional Limit (coerced into a number, positive with max 100) 
+  2. create a CreateCommentarySchema: includes fieldsfor minutes(non-neg int), sequence period(string) eventType, actor, team, message(required string) metadata(record), tagsarray of strings 
+  3. use es modules and export the schemas.
+
+
+  act as senior nodejs developer and generate a 
+  post route for commentary.js file using drizzle orm 
+  1. validate req.paramsusing the matchIdParamsSchema and req.body using createCommentarySchema, insert data into the commentary table and return the result 
+  2. es modules  and handle errors with try catch 
+
+
+Using Drizzle orm & express, generate a GET '/' route for nested commentary router 
+1.validate req.params using matchIsParamSchema
+2. fetch data from 'commentary' table where 'matchId' equals the ID from params
+3. order the result by createdAt in descending order so the newest event appear at first. 
+4. apply limit based on queryparameter (defaulting to 100 with a max_limit safety cap)
+5. use es modules and handles error with try catch 
+
+
+### Broadcast Commentary : 
+- fuse this commentary with websocket server 
+
+1. Implemant a Pub/Sub(public-Subscribe) Architecture : 
+  - update only send to fans/users who have joins this specific match 
+  Q. how you can implement new pattern with upcomming real time applications  ?
+  

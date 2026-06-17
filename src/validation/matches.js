@@ -35,7 +35,7 @@ export const listMatchesQuerySchema = z.object({
  * Route Params
  */
 export const matchIdParamSchema = z.object({
-    id: positiveInt,
+    matchId: positiveInt,
 });
 
 /**

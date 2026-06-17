@@ -4,6 +4,7 @@ import { matchRouter } from "./routes/matches.js";
 import http from 'http';
 import { attachWebSocketServer } from './ws/server.js';
 import { securityMiddleware } from './arcjet.js';
+import { commentaryRouter } from './routes/commentary.js';
 
 const PORT = Number(process.env.PORT) || 8000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -20,11 +21,14 @@ app.get('/', (req, res) => {
     res.json({ message: "Welcome! The server is running smoothly." });
 });
 
-app.use(securityMiddleware());
+// app.use(securityMiddleware());
 
 app.use('/matches', matchRouter);
-const { broadcastMatchCreated } = attachWebSocketServer(server);
+app.use('/matches', commentaryRouter);
+
+const { broadcastMatchCreated, broadcastCommentary } = attachWebSocketServer(server);
 app.locals.broadcastMatchCreated = broadcastMatchCreated;
+app.locals.broadcastCommentary = broadcastCommentary;
 
 // Start server and log the dynamic URL
 server.listen(PORT, HOST, () => {
